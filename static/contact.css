@@ -1,0 +1,24 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+header  {
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../static/said-alamri-Zeu0cX2Ja0A-unsplash.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+  } 
+.container {
+  text-align: left;
+
+}   
+.form-group {
+
+    text-decoration: none;
+    color: azure;
+}  
+.form-text {
+    text-decoration: none;
+    color: azure;
+}

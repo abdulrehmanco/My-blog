@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{%load humanize%}
+{% load extras %}
+<html lang="en"> 
+<head>
+    <title>{{post.title}}</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="static\assets\css\theme-3.css">
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">Marhaba Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="static\WhatsApp Image 2021-03-07 at 6.24.00 PM.jpeg" alt="image" >			
+					
+					<div class="bio mb-3">Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page.<br><a href="about">Find out more about me</a></div><!--//bio-->
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-left">
+					<li class="nav-item">
+					    <a class="nav-link" href="coldwar"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active">
+					    <a class="nav-link" href="contact"><i class="fas fa-bookmark fa-fw mr-2"></i>Email us</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+				<div class="my-2 my-md-3">
+					
+				    <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/" target="_blank">Get in Touch</a>
+				    
+				</div>
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">{{post.title}}</h2>
+				    <div class="meta mb-3"><span class="date">Published 3 months ago</span><span class="time">5 min read</span><span class="comment"><a href="#">4 comments</a></span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				  
+				    <p>{{post.body}} </p>
+				    
+	
+   
+				    <h3 class="mt-5 mb-3">Video Example</h3>
+				    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </p>
+
+				    <div class="embed-responsive embed-responsive-16by9">
+					   <iframe width="560" height="315" src="https://www.youtube.com/embed/hnCmSXCZEpU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>					
+					</div>
+				   
+			    </div>
+             <div class='container'>
+   <h2> Comments <small>({{comments.count}})</small> </h2>
+   <div class='my_2'>
+      {% if user.is_authenticated %}
+      <form action='/postcomment' method='post'>
+         {% csrf_token %}
+         <div class="mb-3">
+            <input type="text" class="form-control" id="exampleInputEmail1" name="comment"
+               placeholder="Enter Comment Here">
+         </div>
+         <input type="hidden" name="postSno" value="{{post.sno}}">
+          <input type="hidden" name="parentSno" value="">
+         <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {%else%}
+      <p> Please Log In to Post Comments </p>
+
+      {%endif%}
+   </div>
+   {% for comment in comments %}
+   <div class='row my-3'>
+      <div class='col-md-1'> <img class="rounded mx-auto d-block w-100 p-2 border border-secondary"
+            src="static\pngtree-vector-users-icon-png-image_856952.jpg" alt="user">
+      </div>
+      <div class='col-md-11'><b> {{comment.user.username}} </b> <span
+            class="badge badge-secondary ">{{comment.timestamp|naturaltime}}</span>
+         <div> {{comment.comment}}
+            {% if user.is_authenticated %}
+            <div class='reply' mx-0>
+               <p>
+                  <a class="btn btn-info" data-toggle="collapse" href="#replybox{{comment.sno}}" role="button"
+                     aria-expanded="false" aria-controls="#replybox{{comment.sno}}">
+                     Reply
+                  </a>
+               <div class="collapse" id="replybox{{comment.sno}}">
+                  <div class="card card-body">
+                     <form action='/postcomment' method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                           <label for="comment">Post a reply </label>
+                           <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                           <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                        </div>
+                        <input type="hidden" name="postSno" value="{{post.sno}}">
+                        <button class="btn btn-info my-2" style="border-radius:1.25rem; background-color:#0062cc;"
+                           type="submit"> Post </button>
+                     </form>
+
+                  </div>
+
+               </div>
+
+            </div> {%endif%}
+            <div class="replies my-2 ">
+               {% for reply in replydict|get_val:comment.sno %}
+               <div class="row my-2">
+                  <div class="col-md-1 ">
+                     <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2"
+                        src="static\pngtree-vector-users-icon-png-image_856952.jpg"" alt=" user">
+                  </div>
+                  <div class="col-md-11">
+                     <div class="col-md-11 ">
+                        <b> {{reply.user.username}} </b> <span
+                           class="badge badge-secondary ">{{reply.timestamp|naturaltime}}</span>
+                        <div>{{reply.comment}}</div>
+                     </div>
+
+                  </div>
+               </div>{% endfor %}
+            </div>
+
+         </div>
+      </div>
+
+
+
+
+   </div>
+
+   {% endfor %}
+</div>
+
+
+				    
+			    <nav class="blog-nav nav nav-justified my-5">
+				  <a class="nav-link-prev nav-item nav-link rounded-left" href="index.html">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+				  <a class="nav-link-next nav-item nav-link rounded-right" href="blog-list.html">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+				</nav>
+				
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	    
+    </div><!--//main-wrapper-->
+    
+
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script>
+    
+
+
+</body>
+</html> 
+
