@@ -16,6 +16,6 @@ urlpatterns = [
     path('coldwar', coldwar.as_view(), name='coldwar'),
     path('postcomment',views.postcomment,name='postcomment'),
     path('<slug:slug>', views.detail, name='detail'),
-   
-    
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
